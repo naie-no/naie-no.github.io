@@ -191,7 +191,7 @@ export default function HomePage() {
               <span className="text-sm text-purple-200">Norwegian AI Ethics Association</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Ethics in artificial{" "}
+              Ethical artificial{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7A1A] to-[#E85E00]">
                 intelligence
               </span>
