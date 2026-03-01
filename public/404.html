@@ -3,11 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
-      sessionStorage.redirect = location.pathname + location.search + location.hash;
-      location.replace("/naie-no/");
+      // GitHub Pages SPA redirect
+      // Takes /no (or any path) and redirects to /?p=/no
+      (function () {
+        var l = window.location;
+        var path = l.pathname;
+        var search = l.search || "";
+        var hash = l.hash || "";
+        l.replace(l.origin + "/?p=" + encodeURIComponent(path) + "&q=" + encodeURIComponent(search) + hash);
+      })();
     </script>
-    <meta http-equiv="refresh" content="0; url=/naie-no/" />
   </head>
   <body></body>
 </html>
