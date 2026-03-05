@@ -36,6 +36,7 @@ const navItemsNo: NavItem[] = [
     ],
   },
   { label: "For organisasjoner", path: "/for-organisasjoner" },
+  { label: "Medlemskap", path: "/medlemskap" },
   { label: "Kontakt", path: "/kontakt" },
 ];
 
@@ -63,6 +64,7 @@ const navItemsEn: NavItem[] = [
     ],
   },
   { label: "For organisations", path: "/for-organisasjoner" },
+  { label: "Membership", path: "/medlemskap" },
   { label: "Contact", path: "/kontakt" },
 ];
 

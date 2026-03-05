@@ -361,13 +361,18 @@ export default function HomePage() {
             Utforsk våre resultater, ressurser og lær mer om hvordan NAIE arbeider for etisk AI i Norge.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
-              <Link to="/resultater">Se resultater</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
-              <Link to="/kontakt">Kontakt oss</Link>
-            </Button>
-          </div>
+		     <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
+		   	<Link to="/resultater">Se resultater</Link>
+		     </Button>
+		   
+		     <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
+		   	<Link to="/no/medlemskap">Les om medlemskap</Link>
+		     </Button>
+		   
+		     <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
+		   	<Link to="/kontakt">Kontakt oss</Link>
+		     </Button>
+		  </div>
         </div>
       </section>
 

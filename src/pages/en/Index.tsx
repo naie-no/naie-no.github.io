@@ -364,6 +364,11 @@ export default function HomePage() {
             <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
               <Link to="/en/resultater">View results</Link>
             </Button>
+
+		    <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
+		   	  <Link to="/en/medlemskap">Learn more about membership</Link>
+		    </Button>
+
             <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
               <Link to="/en/kontakt">Contact us</Link>
             </Button>

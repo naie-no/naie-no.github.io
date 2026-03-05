@@ -180,6 +180,36 @@ export default function OmOss() {
         </div>
       </section>
 
+      {/* Membership CTA */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Card className="border-0 shadow-lg bg-white">
+            <CardContent className="p-10 md:p-14">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h2 className="text-3xl font-bold text-[#3D148A] mb-4">Membership</h2>
+                  <p className="text-gray-600 leading-relaxed">
+                    NAIE is a membership-based association. All members begin as supporting members, and over time those who wish to take on a more active role may obtain voting rights through sustained engagement. We are transparent about how this process works.
+                  </p>
+                </div>
+      
+                <div className="text-center md:text-right flex flex-col md:items-end gap-3">
+                  <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
+                    <Link to="/en/medlemskap">
+                      Learn more about membership <ArrowRight className="ml-2 w-4 h-4" />
+                    </Link>
+                  </Button>
+      
+                  <Button asChild variant="outline" className="rounded-lg">
+                    <Link to="/en/kontakt">Questions? Get in touch</Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* Organization Info */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

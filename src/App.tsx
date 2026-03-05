@@ -20,6 +20,7 @@ import IndexNo from "@/pages/no/Index";
 import OmOssNo from "@/pages/no/OmOss";
 import AktiviteterNo from "@/pages/no/Aktiviteter";
 import ResultaterNo from "@/pages/no/Resultater";
+import MedlemskapNo from "@/pages/no/Medlemskap";
 import {
   Ressurser as RessurserNo,
   Nyheter as NyheterNo,
@@ -27,12 +28,14 @@ import {
   ForOrganisasjoner as ForOrganisasjonerNo,
   Kontakt as KontaktNo,
 } from "@/pages/no/SecondaryPages";
+import PersonsvernNo from "@/pages/no/Personsvern";
 
 // English pages
 import IndexEn from "@/pages/en/Index";
 import OmOssEn from "@/pages/en/OmOss";
 import AktiviteterEn from "@/pages/en/Aktiviteter";
 import ResultaterEn from "@/pages/en/Resultater";
+import MedlemskapEn from "@/pages/en/Medlemskap";
 import {
   Resources as RessurserEn,
   News as NyheterEn,
@@ -40,6 +43,7 @@ import {
   ForOrganisations as ForOrganisasjonerEn,
   Contact as KontaktEn,
 } from "@/pages/en/SecondaryPages";
+import PersonsvernEn from "@/pages/en/Personsvern";
 
 const queryClient = new QueryClient();
 
@@ -68,7 +72,9 @@ const App = () => (
             element={<PresseOgArrangementerNo />}
           />
           <Route path="/no/for-organisasjoner" element={<ForOrganisasjonerNo />} />
+          <Route path="/no/medlemskap" element={<MedlemskapNo />} />
           <Route path="/no/kontakt" element={<KontaktNo />} />
+          <Route path="/no/personsvern" element={<PersonsvernNo />} />
 
           {/* Blog under /no */}
           <Route path="/no/blogg" element={<BloggNo />} />
@@ -89,7 +95,9 @@ const App = () => (
             element={<PresseOgArrangementerEn />}
           />
           <Route path="/en/for-organisasjoner" element={<ForOrganisasjonerEn />} />
+          <Route path="/en/medlemskap" element={<MedlemskapEn />} />
           <Route path="/en/kontakt" element={<KontaktEn />} />
+          <Route path="/en/personsvern" element={<PersonsvernEn />} />
 
           {/* Blog under /en */}
           <Route path="/en/blogg" element={<BloggEn />} />

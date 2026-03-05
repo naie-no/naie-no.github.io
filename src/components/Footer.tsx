@@ -25,6 +25,7 @@ export default function Footer() {
           results: "Results",
           blog: "Blog",
           resources: "Resources",
+          personsvern: "Privacy",
           contact: "Contact",
           organisations: "For organisations",
           copyright:
@@ -36,6 +37,7 @@ export default function Footer() {
           results: "Resultater",
           blog: "Blogg",
           resources: "Ressurser",
+          personsvern: "Personsvern",
           contact: "Kontakt",
           organisations: "For organisasjoner",
           copyright:
@@ -96,6 +98,14 @@ export default function Footer() {
                   className="hover:text-white"
                 >
                   {content.resources}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={withLang(lang, "/personsvern")}
+                  className="hover:text-white"
+                >
+                  {content.personsvern}
                 </Link>
               </li>
             </ul>
