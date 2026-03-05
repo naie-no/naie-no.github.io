@@ -67,11 +67,10 @@ export default function MembershipForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Kort om motivasjon</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Kort om motivasjon <span className="text-gray-400">(valgfritt)</span></label>
         <textarea
           name="message"
           rows={4}
-          required
           className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5A23C9]/30 focus:border-[#5A23C9] transition-colors text-sm resize-none"
           placeholder="Hva motiverer deg til å bli medlem, og hvordan ønsker du eventuelt å bidra?"
         />
