@@ -62,7 +62,7 @@ export default function MembershipForm() {
         >
           <option>Støtte</option>
           <option>Bidra aktivt</option>
-          <option>Usikker ennå</option>
+          <option>Usikker</option>
         </select>
       </div>
 

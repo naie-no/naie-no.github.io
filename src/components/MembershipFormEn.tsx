@@ -62,7 +62,7 @@ export default function MembershipFormEn() {
         >
           <option>Support</option>
           <option>Contribute actively</option>
-          <option>Not sure yet</option>
+          <option>Not sure</option>
         </select>
       </div>
 
