@@ -17,6 +17,7 @@ export default function Footer() {
   const location = useLocation();
   const lang = getLangFromPath(location.pathname);
 
+  // Structural text changes based on selection language
   const content =
     lang === "en"
       ? {
@@ -50,11 +51,11 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-10">
           {/* Column 1 */}
           <div>
-			<img
-			  src={logo}
-			  alt="NAIE logo"
-			  className="h-10 w-auto mb-4 object-contain"
-			/>
+            <img
+              src={logo}
+              alt="NAIE logo"
+              className="h-10 w-auto mb-4 object-contain"
+            />
             <p className="text-sm text-purple-200 leading-relaxed">
               {content.copyright}
             </p>
@@ -67,13 +68,16 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-purple-200">
               <li>
-                <Link to={withLang(lang, "/om-oss")} className="hover:text-white">
+                <Link 
+                  to={withLang(lang, lang === "en" ? "/about-us" : "/om-oss")} 
+                  className="hover:text-white"
+                >
                   {content.about}
                 </Link>
               </li>
               <li>
                 <Link
-                  to={withLang(lang, "/aktiviteter")}
+                  to={withLang(lang, lang === "en" ? "/activities" : "/aktiviteter")}
                   className="hover:text-white"
                 >
                   {content.activities}
@@ -81,20 +85,23 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to={withLang(lang, "/resultater")}
+                  to={withLang(lang, lang === "en" ? "/results" : "/resultater")}
                   className="hover:text-white"
                 >
                   {content.results}
                 </Link>
               </li>
               <li>
-                <Link to={withLang(lang, "/blogg")} className="hover:text-white">
+                <Link 
+                  to={withLang(lang, lang === "en" ? "/blog" : "/blogg")} 
+                  className="hover:text-white"
+                >
                   {content.blog}
                 </Link>
               </li>
               <li>
                 <Link
-                  to={withLang(lang, "/ressurser")}
+                  to={withLang(lang, lang === "en" ? "/resources" : "/ressurser")}
                   className="hover:text-white"
                 >
                   {content.resources}
@@ -102,7 +109,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to={withLang(lang, "/personsvern")}
+                  to={withLang(lang, lang === "en" ? "/privacy" : "/personsvern")}
                   className="hover:text-white"
                 >
                   {content.personsvern}
@@ -119,14 +126,17 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-purple-200">
               <li>
                 <Link
-                  to={withLang(lang, "/for-organisasjoner")}
+                  to={withLang(lang, lang === "en" ? "/for-organisations" : "/for-organisasjoner")}
                   className="hover:text-white"
                 >
                   {content.organisations}
                 </Link>
               </li>
               <li>
-                <Link to={withLang(lang, "/kontakt")} className="hover:text-white">
+                <Link 
+                  to={withLang(lang, lang === "en" ? "/contact" : "/kontakt")} 
+                  className="hover:text-white"
+                >
                   {content.contact}
                 </Link>
               </li>

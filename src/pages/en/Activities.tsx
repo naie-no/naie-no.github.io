@@ -38,7 +38,7 @@ const activities = {
       },
     ],
   },
-  "ansvarlig-ai": {
+  "responsible-ai": {
     title: "Responsible AI",
     icon: Shield,
     color: "#FF7A1A",
@@ -67,7 +67,7 @@ const activities = {
       },
     ],
   },
-  baerekraft: {
+  sustainability: {
     title: "Sustainability",
     icon: Leaf,
     color: "#10B981",
@@ -98,9 +98,9 @@ const activities = {
   },
 };
 
-type ActivityKey = "bias" | "ansvarlig-ai" | "baerekraft";
+type ActivityKey = "bias" | "responsible-ai" | "sustainability";
 
-export default function Aktiviteter() {
+export default function Activities() {
   const { slug } = useParams<{ slug?: string }>();
 
   const activity = slug ? activities[slug as ActivityKey] : null;
@@ -123,7 +123,7 @@ export default function Aktiviteter() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#3D148A]/90 to-[#3D148A]/60" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Button asChild variant="ghost" className="text-purple-200 hover:text-white !bg-transparent mb-4 -ml-3">
-            <Link to="/en/aktiviteter">
+            <Link to="/en/activities">
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to activities
             </Link>
           </Button>
@@ -169,7 +169,7 @@ export default function Aktiviteter() {
           <h2 className="text-2xl font-bold text-[#3D148A] mb-4">Explore our results</h2>
           <p className="text-gray-600 mb-6">See what we have found through our research and analysis.</p>
           <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
-            <Link to="/en/resultater">
+            <Link to="/en/results">
               View results <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </Button>
@@ -182,7 +182,7 @@ export default function Aktiviteter() {
 }
 
 function OverviewPage() {
-  const pillarList: ActivityKey[] = ["bias", "ansvarlig-ai", "baerekraft"];
+  const pillarList: ActivityKey[] = ["bias", "responsible-ai", "sustainability"];
 
   return (
     <div className="min-h-screen bg-[#F6F6F6]" style={{ fontFamily: "Inter, sans-serif" }}>
@@ -201,7 +201,7 @@ function OverviewPage() {
             {pillarList.map((key) => {
               const act = activities[key] as typeof activities.bias;
               return (
-                <Link key={key} to={`/en/aktiviteter/${key}`} className="group">
+                <Link key={key} to={`/en/activities/${key}`} className="group">
                   <Card className="h-full border-0 shadow-md hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2 overflow-hidden">
                     <div className="h-52 overflow-hidden">
                       <img

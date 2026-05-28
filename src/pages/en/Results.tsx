@@ -459,12 +459,12 @@ export default function Resultater() {
                   bias level.
                 </p>
                 <p>
-                  The results provide valuable insights for organizations considering adopting AI systems, and help them
+                  The results provide valuable insights for organisations considering adopting AI systems, and help them
                   choose models that are more fair and less discriminatory.
                 </p>
               </div>
               <Button asChild className="mt-6 bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
-                <Link to="/en/aktiviteter/bias">
+                <Link to="/en/activities/bias">
                   Read more about our bias work <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
@@ -496,10 +496,10 @@ export default function Resultater() {
           <Card className="border-0 shadow-lg bg-gradient-to-br from-[#3D148A] to-[#5A23C9] text-white">
             <CardContent className="p-10">
               <h2 className="text-2xl font-bold mb-3">Do you want to use our results?</h2>
-              <p className="text-purple-200 mb-6">Contact us to learn more about how our findings can help your organization.</p>
+              <p className="text-purple-200 mb-6">Contact us to learn more about how our findings can help your organisation.</p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
-                  <Link to="/en/for-organisasjoner">For organizations</Link>
+                  <Link to="/en/for-organisations">For organisations</Link>
                 </Button>
                 <Button
                   asChild
@@ -507,7 +507,7 @@ export default function Resultater() {
                   size="lg"
                   className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg"
                 >
-                  <Link to="/en/kontakt">Contact us</Link>
+                  <Link to="/en/contact">Contact us</Link>
                 </Button>
               </div>
             </CardContent>

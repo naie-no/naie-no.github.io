@@ -36,7 +36,7 @@ function PageWrapper({
 }
 
 /* ===================== BLOG LIST ===================== */
-export function Blogg() {
+export function Blog() {
   return (
     <PageWrapper title="Blog" subtitle="All blog posts from NAIE.">
       <section className="pb-20">
@@ -68,7 +68,7 @@ export function Blogg() {
                           </a>
                         ) : (
                           <Link
-                            to={`/en/blogg/${post.slug}`}
+                            to={`/en/blog/${post.slug}`}
                             className="mt-3 text-[#FF7A1A] text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
                           >
                             Read more <ArrowRight className="w-4 h-4" />
@@ -87,7 +87,7 @@ export function Blogg() {
 }
 
 /* ===================== SINGLE BLOG POST ===================== */
-export function BloggPost() {
+export function BlogPost() {
   const { slug } = useParams();
   const meta = useMemo(() => BLOGS.find((p) => p.slug === slug), [slug]);
 
@@ -111,7 +111,7 @@ export function BloggPost() {
         <section className="pb-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-gray-600">This page does not exist.</p>
-            <Link to="/blogg" className="text-[#FF7A1A] font-medium inline-flex items-center gap-1 mt-4">
+            <Link to="/en/blog" className="text-[#FF7A1A] font-medium inline-flex items-center gap-1 mt-4">
               Back to blog <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -130,7 +130,7 @@ export function BloggPost() {
             </ReactMarkdown>
           </article>
 
-          <Link to="/blogg" className="text-[#FF7A1A] font-medium inline-flex items-center gap-1 mt-8">
+          <Link to="/en/blog" className="text-[#FF7A1A] font-medium inline-flex items-center gap-1 mt-8">
             Back to blog <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

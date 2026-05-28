@@ -51,7 +51,7 @@ export default function OmOss() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">About us</h1>
             <p className="text-lg text-purple-200 leading-relaxed">
               NAIE (Norwegian AI Ethics Association) is an independent,
-              non-profit organization working to promote the ethical and
+              non-profit organisation working to promote the ethical and
               responsible use of artificial intelligence in Norway.
             </p>
           </div>
@@ -195,13 +195,13 @@ export default function OmOss() {
       
                 <div className="text-center md:text-right flex flex-col md:items-end gap-3">
                   <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
-                    <Link to="/en/medlemskap">
+                    <Link to="/en/membership">
                       Learn more about membership <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </Button>
       
                   <Button asChild variant="outline" className="rounded-lg">
-                    <Link to="/en/kontakt">Questions? Get in touch</Link>
+                    <Link to="/en/contact">Questions? Get in touch</Link>
                   </Button>
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function OmOss() {
         </div>
       </section>
 
-      {/* Organization Info */}
+      {/* Organisation Info */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="border-0 shadow-lg bg-gradient-to-br from-[#3D148A] to-[#5A23C9] text-white">
@@ -218,7 +218,7 @@ export default function OmOss() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <h2 className="text-3xl font-bold mb-4">
-                    Organization information
+                    Organisation information
                   </h2>
                   <ul className="space-y-3 text-purple-200">
                     <li>
@@ -227,7 +227,7 @@ export default function OmOss() {
                     </li>
                     <li>
                       <span className="text-white font-medium">Type:</span>{" "}
-                      Independent, non-profit organization
+                      Independent, non-profit organisation
                     </li>
                     <li>
                       <span className="text-white font-medium">Org. no.:</span>{" "}
@@ -246,7 +246,7 @@ export default function OmOss() {
                     size="lg"
                     className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg"
                   >
-                    <Link to="/en/kontakt">
+                    <Link to="/en/contact">
                       Contact us <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </Button>

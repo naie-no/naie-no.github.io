@@ -4,6 +4,10 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/naie_logo_v1_with_text_purple.svg";
 
+// Import your content arrays to dynamically translate asymmetric article slugs
+import { BLOGS as BLOGS_NO } from "@/content/no/blog";
+import { BLOGS as BLOGS_EN } from "@/content/en/blog";
+
 type Lang = "no" | "en";
 
 type NavItem = {
@@ -42,41 +46,68 @@ const navItemsNo: NavItem[] = [
 
 const navItemsEn: NavItem[] = [
   { label: "Home", path: "/" },
-  { label: "About", path: "/om-oss" },
+  { label: "About", path: "/about-us" },
   {
     label: "Activities",
-    path: "/aktiviteter",
+    path: "/activities",
     children: [
-      { label: "Bias", path: "/aktiviteter/bias" },
-      { label: "Responsible AI", path: "/aktiviteter/ansvarlig-ai" },
-      { label: "Sustainability", path: "/aktiviteter/baerekraft" },
+      { label: "Bias", path: "/activities/bias" },
+      { label: "Responsible AI", path: "/activities/ansvarlig-ai" },
+      { label: "Sustainability", path: "/activities/baerekraft" },
     ],
   },
   {
     label: "Insights",
-    path: "/resultater",
+    path: "/results",
     children: [
-      { label: "Results", path: "/resultater" },
-      { label: "Blog", path: "/blogg" },
-      { label: "Resources", path: "/ressurser" },
-      { label: "News", path: "/nyheter" },
-      { label: "Press & Events", path: "/presse-og-arrangementer" },
+      { label: "Results", path: "/results" },
+      { label: "Blog", path: "/blog" },
+      { label: "Resources", path: "/resources" },
+      { label: "News", path: "/news" },
+      { label: "Press & Events", path: "/press-and-events" },
     ],
   },
-  { label: "For organisations", path: "/for-organisasjoner" },
-  { label: "Membership", path: "/medlemskap" },
-  { label: "Contact", path: "/kontakt" },
+  { label: "For organisations", path: "/for-organisations" },
+  { label: "Membership", path: "/membership" },
+  { label: "Contact", path: "/contact" },
 ];
+
+// Bidirectional lookup mapping table
+const pathTranslations: Record<string, string> = {
+  "/": "/",
+  "/om-oss": "/about-us",
+  "/about-us": "/om-oss",
+  "/aktiviteter": "/activities",
+  "/activities": "/aktiviteter",
+  "/aktiviteter/bias": "/activities/bias",
+  "/activities/bias": "/aktiviteter/bias",
+  "/aktiviteter/ansvarlig-ai": "/activities/ansvarlig-ai",
+  "/activities/ansvarlig-ai": "/aktiviteter/ansvarlig-ai",
+  "/aktiviteter/baerekraft": "/activities/baerekraft",
+  "/activities/baerekraft": "/aktiviteter/baerekraft",
+  "/resultater": "/results",
+  "/results": "/resultater",
+  "/blogg": "/blog",
+  "/blog": "/blogg",
+  "/ressurser": "/resources",
+  "/resources": "/ressurser",
+  "/nyheter": "/news",
+  "/news": "/nyheter",
+  "/presse-og-arrangementer": "/press-and-events",
+  "/press-and-events": "/presse-og-arrangementer",
+  "/for-organisasjoner": "/for-organisations",
+  "/for-organisations": "/for-organisasjoner",
+  "/medlemskap": "/membership",
+  "/membership": "/medlemskap",
+  "/kontakt": "/contact",
+  "/contact": "/kontakt",
+};
 
 function getLangFromPath(pathname: string): Lang {
   const first = pathname.split("/")[1];
   return first === "en" ? "en" : "no";
 }
 
-/**
- * Prefix a path with /no or /en.
- * Special-case "/" so it becomes "/no" or "/en".
- */
 function withLang(lang: Lang, path: string): string {
   if (path === "/") return `/${lang}`;
   return `/${lang}${path}`;
@@ -89,30 +120,26 @@ export default function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // IMPORTANT: Because App.tsx uses <BrowserRouter basename={import.meta.env.BASE_URL}>,
-  // we MUST NOT manually prepend BASE_URL (e.g. "/naie-no") anywhere.
   const pathname = location.pathname;
-
   const lang = useMemo(() => getLangFromPath(pathname), [pathname]);
   const base = `/${lang}`;
 
   const items = useMemo(() => (lang === "en" ? navItemsEn : navItemsNo), [lang]);
 
+  // Safely extract the component path without the language parameter
   const currentPathNoLang = useMemo(() => {
-    // "/no/kontakt" -> "/kontakt"
-    // "/no" -> "/"
     const parts = pathname.split("/");
     const maybeLang = parts[1];
 
     if (maybeLang === "no" || maybeLang === "en") {
       const rest = "/" + parts.slice(2).join("/");
+      // Keep root as "/" and strip training slashes safely
       return rest === "/" ? "/" : rest.replace(/\/$/, "") || "/";
     }
-    return pathname;
+    return pathname === "/" ? "/" : pathname.replace(/\/$/, "") || "/";
   }, [pathname]);
 
   const isActive = (rawPath: string) => {
-    // Compare against current path WITHOUT language prefix
     const normalize = (p: string) => (p === "/" ? "/" : p.replace(/\/$/, ""));
     return normalize(currentPathNoLang) === normalize(rawPath);
   };
@@ -121,9 +148,57 @@ export default function Navigation() {
     children?.some((c) => isActive(c.path)) ?? false;
 
   const switchLang = (next: Lang) => {
-    // Replace /no or /en at the start of the path (Router basename is handled by BrowserRouter)
-    const newPath = pathname.replace(/^\/(no|en)(\/|$)/, `/${next}$2`);
-    navigate(newPath);
+    if (lang === next) return;
+
+    const cleanPath = currentPathNoLang;
+
+    // 1. Direct translation mapping check for static pages
+    if (pathTranslations[cleanPath]) {
+      navigate(`/${next}${pathTranslations[cleanPath]}`);
+      return;
+    }
+
+    // 2. Handle paths with unique / translated blog slugs dynamically
+    if (cleanPath.startsWith("/blogg/")) {
+      const noSlug = cleanPath.substring(7);
+      // Find the index position of the current Norwegian post
+      const postIndex = BLOGS_NO.findIndex((p) => p.slug === noSlug);
+      
+      // If found and the English post exists at that same list position, route there
+      if (postIndex !== -1 && BLOGS_EN[postIndex]) {
+        navigate(`/${next}/blog/${BLOGS_EN[postIndex].slug}`);
+      } else {
+        navigate(`/${next}/blog`);
+      }
+      return;
+    }
+
+    if (cleanPath.startsWith("/blog/")) {
+      const enSlug = cleanPath.substring(6);
+      // Find the index position of the current English post
+      const postIndex = BLOGS_EN.findIndex((p) => p.slug === enSlug);
+      
+      // Map it back to the exact Norwegian post at that index
+      if (postIndex !== -1 && BLOGS_NO[postIndex]) {
+        navigate(`/${next}/blogg/${BLOGS_NO[postIndex].slug}`);
+      } else {
+        navigate(`/${next}/blogg`);
+      }
+      return;
+    }
+
+    // 3. Handle sub-activities fallback safely if you configure them dynamically later
+    if (cleanPath.startsWith("/aktiviteter/")) {
+      navigate(`/${next}/activities/${cleanPath.substring(13)}`);
+      return;
+    }
+    if (cleanPath.startsWith("/activities/")) {
+      navigate(`/${next}/aktiviteter/${cleanPath.substring(12)}`);
+      return;
+    }
+
+    // 4. Complete fallback safety valve
+    navigate(`/${next}`);
   };
 
   return (
@@ -133,10 +208,10 @@ export default function Navigation() {
           {/* Logo */}
           <Link to={base} className="flex items-center gap-2 shrink-0">
             <img
-			  src={logo}
-			  alt="NAIE logo"
-			  className="h-10 w-auto object-contain"
-			/>
+              src={logo}
+              alt="NAIE logo"
+              className="h-10 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Nav */}

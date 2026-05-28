@@ -13,7 +13,7 @@ import NotFound from "@/pages/NotFound";
 
 // Blog pages (separate per language)
 import { Blogg as BloggNo, BloggPost as BloggPostNo } from "@/pages/no/Blogg";
-import { Blogg as BloggEn, BloggPost as BloggPostEn } from "@/pages/en/Blogg";
+import { Blog as BlogEn, BlogPost as BlogPostEn } from "@/pages/en/Blog";
 
 // Norwegian pages
 import IndexNo from "@/pages/no/Index";
@@ -32,18 +32,18 @@ import PersonsvernNo from "@/pages/no/Personsvern";
 
 // English pages
 import IndexEn from "@/pages/en/Index";
-import OmOssEn from "@/pages/en/OmOss";
-import AktiviteterEn from "@/pages/en/Aktiviteter";
-import ResultaterEn from "@/pages/en/Resultater";
-import MedlemskapEn from "@/pages/en/Medlemskap";
+import AboutUsEn from "@/pages/en/AboutUs";
+import AktivitiesEn from "@/pages/en/Activities";
+import ResultsEn from "@/pages/en/Results";
+import MembershipEn from "@/pages/en/Membership";
 import {
-  Resources as RessurserEn,
-  News as NyheterEn,
-  PressAndArrangements as PresseOgArrangementerEn,
-  ForOrganisations as ForOrganisasjonerEn,
-  Contact as KontaktEn,
+  Resources as ResourcesEn,
+  News as NewsEn,
+  PressAndEvents as PressAndEventsEn,
+  ForOrganisations as ForOrganisationsEn,
+  Contact as ContactEn,
 } from "@/pages/en/SecondaryPages";
-import PersonsvernEn from "@/pages/en/Personsvern";
+import PrivacyEn from "@/pages/en/Privacy";
 
 const queryClient = new QueryClient();
 
@@ -84,35 +84,35 @@ const App = () => (
               English routes (/en)
           =========================== */}
           <Route path="/en" element={<IndexEn />} />
-          <Route path="/en/om-oss" element={<OmOssEn />} />
-          <Route path="/en/aktiviteter" element={<AktiviteterEn />} />
-          <Route path="/en/aktiviteter/:slug" element={<AktiviteterEn />} />
-          <Route path="/en/resultater" element={<ResultaterEn />} />
-          <Route path="/en/ressurser" element={<RessurserEn />} />
-          <Route path="/en/nyheter" element={<NyheterEn />} />
+          <Route path="/en/about-us" element={<AboutUsEn />} />
+          <Route path="/en/activities" element={<AktivitiesEn />} />
+          <Route path="/en/activities/:slug" element={<AktivitiesEn />} />
+          <Route path="/en/results" element={<ResultsEn />} />
+          <Route path="/en/resources" element={<ResourcesEn />} />
+          <Route path="/en/news" element={<NewsEn />} />
           <Route
-            path="/en/presse-og-arrangementer"
-            element={<PresseOgArrangementerEn />}
+            path="/en/press-and-events"
+            element={<PressAndEventsEn />}
           />
-          <Route path="/en/for-organisasjoner" element={<ForOrganisasjonerEn />} />
-          <Route path="/en/medlemskap" element={<MedlemskapEn />} />
-          <Route path="/en/kontakt" element={<KontaktEn />} />
-          <Route path="/en/personsvern" element={<PersonsvernEn />} />
-
+          <Route path="/en/for-organisations" element={<ForOrganisationsEn />} />
+          <Route path="/en/membership" element={<MembershipEn />} />
+          <Route path="/en/contact" element={<ContactEn />} />
+          <Route path="/en/privacy" element={<PrivacyEn />} />
+          
           {/* Blog under /en */}
-          <Route path="/en/blogg" element={<BloggEn />} />
-          <Route path="/en/blogg/:slug" element={<BloggPostEn />} />
+          <Route path="/en/blog" element={<BlogEn />} />
+          <Route path="/en/blog/:slug" element={<BlogPostEn />} />
 
           {/* Auth routes */}
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/auth/error" element={<AuthError />} />
 
-          {/* Backward compatibility redirects */}
+          {/* Backward compatibility redirects (Norwegian) */}
           <Route path="/om-oss" element={<Navigate to="/no/om-oss" replace />} />
           <Route path="/aktiviteter" element={<Navigate to="/no/aktiviteter" replace />} />
           <Route
             path="/aktiviteter/:slug"
-            element={<Navigate to="/no/aktiviteter" replace />}
+            element={<Navigate to="/no/aktiviteter/:slug" replace />}
           />
           <Route path="/resultater" element={<Navigate to="/no/resultater" replace />} />
           <Route path="/ressurser" element={<Navigate to="/no/ressurser" replace />} />
@@ -127,7 +127,29 @@ const App = () => (
           />
           <Route path="/kontakt" element={<Navigate to="/no/kontakt" replace />} />
           <Route path="/blogg" element={<Navigate to="/no/blogg" replace />} />
-          <Route path="/blogg/:slug" element={<Navigate to="/no/blogg" replace />} />
+          <Route path="/blogg/:slug" element={<Navigate to="/no/blogg/:slug" replace />} />
+          
+          {/* Backward compatibility redirects (English) */}
+          <Route path="/about-us" element={<Navigate to="/en/about-us" replace />} />
+          <Route path="/activities" element={<Navigate to="/en/activities" replace />} />
+          <Route
+            path="/activities/:slug"
+            element={<Navigate to="/en/activities/:slug" replace />}
+          />
+          <Route path="/results" element={<Navigate to="/en/results" replace />} />
+          <Route path="/resources" element={<Navigate to="/en/resources" replace />} />
+          <Route path="/news" element={<Navigate to="/en/news" replace />} />
+          <Route
+            path="/press-and-events"
+            element={<Navigate to="/en/press-and-events" replace />}
+          />
+          <Route
+            path="/for-organisations"
+            element={<Navigate to="/en/for-organisations" replace />}
+          />
+          <Route path="/contact" element={<Navigate to="/en/contact" replace />} />
+          <Route path="/blog" element={<Navigate to="/en/blog" replace />} />
+          <Route path="/blog/:slug" element={<Navigate to="/en/blog/:slug" replace />} />
 
           {/* Not found */}
           <Route path="*" element={<NotFound />} />

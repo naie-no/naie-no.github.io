@@ -34,7 +34,7 @@ export function Resources() {
       title: "NoBBQ Benchmark",
       description:
         "Our benchmark for measuring bias in large language models in Norwegian. Available as open source.",
-      link: en("/aktiviteter/bias"),
+      link: en("/activities/bias"),
       linkText: "Read more",
     },
     {
@@ -42,7 +42,7 @@ export function Resources() {
       title: "Reports and publications",
       description:
         "Research reports, analyses, and publications from NAIE’s work on AI ethics.",
-      link: en("/resultater"),
+      link: en("/results"),
       linkText: "View results",
     },
     {
@@ -50,7 +50,7 @@ export function Resources() {
       title: "Presentations",
       description:
         "Recordings and material from conferences, webinars, and talks about AI ethics.",
-      link: en("/presse-og-arrangementer"),
+      link: en("/press-and-events"),
       linkText: "View events",
     },
     {
@@ -171,7 +171,7 @@ export function News() {
 }
 
 /* ===================== PRESS & EVENTS ===================== */
-export function PressAndArrangements() {
+export function PressAndEvents() {
 const pressItems = [
   {
     type: "Event",
@@ -294,7 +294,7 @@ export function ForOrganisations() {
       title: "Workshops and awareness",
       icon: Video,
       description:
-        "Interactive workshops that make bias and responsible AI concrete and discussable for your organization.",
+        "Interactive workshops that make bias and responsible AI concrete and discussable for your organisation.",
       bullets: [
         "Analyze model outputs and identify bias patterns",
         "Discuss realistic scenarios and trade-offs",
@@ -318,11 +318,11 @@ export function ForOrganisations() {
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   Norwegian AI Ethics Association (NAIE) is a non-profit
-                  organization working to increase understanding of bias, ethics,
+                  organisation working to increase understanding of bias, ethics,
                   and societal effects of AI in a Norwegian context.
                 </p>
                 <p>
-                  We offer professional contributions to organizations that want
+                  We offer professional contributions to organisations that want
                   to strengthen their understanding of risk, responsibility, and
                   consequences related to using AI systems.
                 </p>
@@ -348,7 +348,7 @@ export function ForOrganisations() {
                 asChild
                 className="mt-6 bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg"
               >
-                <Link to={en("/kontakt")}>
+                <Link to={en("/contact")}>
                   Get in touch <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
@@ -442,7 +442,7 @@ export function Contact() {
                     See our page for organisations.
                   </p>
                   <Link
-                    to={en("/for-organisasjoner")}
+                    to={en("/for-organisations")}
                     className="text-[#FF7A1A] text-sm font-medium inline-flex items-center gap-1"
                   >
                     Read more <ArrowRight className="w-4 h-4" />

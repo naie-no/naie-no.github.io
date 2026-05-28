@@ -13,7 +13,7 @@ const pillars = [
       "We examine and measure bias in AI systems. Through the NoBBQ benchmark, we test large language models for bias related to gender, ethnicity, religion, and other protected categories.",
     icon: BarChart3,
     image: "https://mgx-backend-cdn.metadl.com/generate/images/974861/2026-02-17/2c507247-45cd-446a-a931-cc2cf506b4f8.png",
-    path: "/en/aktiviteter/bias",
+    path: "/en/activities/bias",
     color: "#5A23C9",
   },
   {
@@ -22,7 +22,7 @@ const pillars = [
       "We promote responsible development and use of artificial intelligence in Norway. Our work includes guidelines, best practices, and tools for ethical AI implementation.",
     icon: Shield,
     image: "https://mgx-backend-cdn.metadl.com/generate/images/974861/2026-02-17/9162907a-6407-4f58-908a-72c3fb328131.png",
-    path: "/en/aktiviteter/ansvarlig-ai",
+    path: "/en/activities/responsible-ai",
     color: "#FF7A1A",
   },
   {
@@ -31,7 +31,7 @@ const pillars = [
       "We investigate the environmental impact of AI systems and work toward more sustainable AI development. We measure and report energy usage and carbon footprint.",
     icon: Leaf,
     image: "https://mgx-backend-cdn.metadl.com/generate/images/974861/2026-02-17/5dbf5d3e-295f-427b-86d9-cfecd9b430b2.png",
-    path: "/en/aktiviteter/baerekraft",
+    path: "/en/activities/sustainability",
     color: "#10B981",
   },
 ];
@@ -201,13 +201,13 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg px-6">
-                <Link to="/en/resultater">
+                <Link to="/en/results">
                   View results
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg px-6">
-                <Link to="/en/om-oss">About us</Link>
+                <Link to="/en/about-us">About us</Link>
               </Button>
             </div>
           </div>
@@ -271,7 +271,7 @@ export default function HomePage() {
           </div>
           <div className="text-center mt-10">
             <Button asChild size="lg" className="bg-[#5A23C9] hover:bg-[#3D148A] text-white font-semibold rounded-lg">
-              <Link to="/en/resultater">
+              <Link to="/en/results">
                 See what we’ve found <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
@@ -362,15 +362,15 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="bg-[#FF7A1A] hover:bg-[#E85E00] text-white font-semibold rounded-lg">
-              <Link to="/en/resultater">View results</Link>
+              <Link to="/en/results">View results</Link>
             </Button>
 
 		    <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
-		   	  <Link to="/en/medlemskap">Learn more about membership</Link>
+		   	  <Link to="/en/membership">Learn more about membership</Link>
 		    </Button>
 
             <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 !bg-transparent rounded-lg">
-              <Link to="/en/kontakt">Contact us</Link>
+              <Link to="/en/contact">Contact us</Link>
             </Button>
           </div>
         </div>

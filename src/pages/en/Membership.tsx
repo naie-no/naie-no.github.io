@@ -117,13 +117,13 @@ export default function Membership() {
 
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="outline" className="rounded-lg">
-                  <Link to="/en/om-oss">Learn more about NAIE</Link>
+                  <Link to="/en/about-us">Learn more about NAIE</Link>
                 </Button>
                 <Button
                   asChild
                   className="bg-[#5A23C9] hover:bg-[#3D148A] text-white font-semibold rounded-lg"
                 >
-                  <Link to="/en/kontakt">
+                  <Link to="/en/contact">
                     Questions? Get in touch <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>

@@ -13,6 +13,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- 1. ADD THIS SCRIPT HERE TO UNPACK THE URL -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var targetPath = params.get('p');
+        if (targetPath) {
+          // Reconstruct the original search and hash if they exist
+          var targetSearch = params.get('q') ? decodeURIComponent(params.get('q')) : '';
+          var hash = window.location.hash || '';
+          
+          // Clean the URL bar back to /no/about (or whatever it was)
+          window.history.replaceState(null, null, targetPath + targetSearch + hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
