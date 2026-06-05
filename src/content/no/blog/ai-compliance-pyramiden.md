@@ -58,7 +58,7 @@ Vi er ikke et revisjonsselskap.
 
 I stedet fokuserer vi på å bidra til å bygge evidenslaget som gjør resten mulig: lokaliserte benchmarker, målerammeverk og datasett som gjør det mulig å evaluere AI-systemer på en meningsfull måte.
 
-![Pyramid](/blog/AI-Compliance-Pyramid.png)
+![Pyramid](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid.png)
 
 Med andre ord: Mens store deler av bransjen fokuserer på de øverste lagene i pyramiden, arbeider vi med fundamentet.
 
