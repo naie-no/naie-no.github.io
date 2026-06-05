@@ -12,19 +12,19 @@ While thinking about where NAIE fits within the broader AI ecosystem, I develope
 
 ## Tier 1: The EU AI Act
 
-![Tier 1](/blog/AI-Compliance-Pyramid-Tier-1.png)
+![Tier 1](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1.png)
 
 At the very top sits the EU. The AI Act and other regulatory initiatives are driving much of the conversation around responsible AI.
 
 ## Tier 2: National & local authorities
 
-![Tier 2](/blog/AI-Compliance-Pyramid-Tier-1&2.png)
+![Tier 2](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1&2.png)
 
 Below that sits Regulation and Supervision. Laws are only effective when there are mechanisms to interpret, enforce, and oversee them.
 
 ## Tier 3: Third parties & consultants
 
-![Tier 3](/blog/AI-Compliance-Pyramid-Tier-1&2&3.png)
+![Tier 3](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1&2&3.png)
 
 Underneath that sits Audit and Guidance. Organizations need practical ways to assess whether systems actually comply with requirements. Auditors need methodologies. Companies need guidance. Standards need interpretation.
 
@@ -42,7 +42,7 @@ And that realization led me to the bottom layer of the pyramid.
 
 ## Tier 4: Base data & benchmarks.
 
-![Tier 4](/blog/AI-Compliance-Pyramid-Tier-1&2&3&4.png)
+![Tier 4](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1&2&3&4.png)
 
 Without datasets, benchmarks, evaluation methods, and measurable criteria, the layers above have very little to stand on. Audits become opinions. Guidance becomes difficult to validate. Regulation becomes difficult to operationalize.
 
@@ -55,7 +55,7 @@ We are not an auditing firm.
 
 Instead, we focus on helping build the evidence layer that makes the rest possible: localized benchmarks, measurement frameworks, and datasets that allow AI systems to be evaluated in a meaningful way.
 
-![Pyramid](/blog/AI-Compliance-Pyramid.png)
+![Pyramid](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid.png)
 
 In other words, while much of the industry is focused on the upper layers of the pyramid, we are working on the foundation.
 

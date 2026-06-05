@@ -11,7 +11,7 @@ export const BLOGS: BlogMeta[] = [
     slug: "the-ai-compliance-pyramid",
     title: "The AI Compliance Pyramid",
     date: "2026-06-08",
-    excerpt: "Dagens etterlevelsesgap.",
+    excerpt: "Today's compliance gap.",
     file: () => import("./the-ai-compliance-pyramid.md?raw"),
   },  {
     slug: "measuring-bias-in-ai-systems-part-3",

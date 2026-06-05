@@ -12,19 +12,19 @@ Mens jeg tenkte over hvor NAIE passer inn i det bredere AI-økosystemet, utvikle
 
 ## Nivå 1: EUs AI-forordning
 
-![Tier 1](/blog/AI-Compliance-Pyramid-Tier-1.png)
+![Tier 1](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1.png)
 
 Helt øverst finner vi EU. AI-forordningen (AI Act) og andre regulatoriske initiativer driver mye av samtalen om ansvarlig AI.
 
 ## Nivå 2: Nasjonale og lokale myndigheter
 
-![Tier 2](/blog/AI-Compliance-Pyramid-Tier-1&2.png)
+![Tier 2](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1&2.png)
 
 Under dette finner vi regulering og tilsyn. Lover er bare effektive når det finnes mekanismer for å tolke, håndheve og føre tilsyn med dem.
 
 ## Nivå 3: Tredjeparter og konsulenter
 
-![Tier 3](/blog/AI-Compliance-Pyramid-Tier-1&2&3.png)
+![Tier 3](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1&2&3.png)
 
 Under dette igjen finner vi revisjon og veiledning. Organisasjoner trenger praktiske måter å vurdere om systemer faktisk oppfyller kravene. Revisorer trenger metodikk. Virksomheter trenger veiledning. Standarder trenger tolkning.
 
@@ -44,7 +44,7 @@ Og det var denne erkjennelsen som ledet meg til det nederste laget i pyramiden.
 
 ## Nivå 4: Grunndata og benchmarker
 
-![Tier 4](/blog/AI-Compliance-Pyramid-Tier-1&2&3&4.png)
+![Tier 4](/blog/ai-compliance-pyramide/AI-Compliance-Pyramid-Tier-1&2&3&4.png)
 
 Uten datasett, benchmarker, evalueringsmetoder og målbare kriterier har lagene over svært lite å stå på. Revisjoner blir meninger. Veiledning blir vanskelig å validere. Regulering blir vanskelig å operasjonalisere.
 

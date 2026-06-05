@@ -8,6 +8,12 @@ export type BlogMeta = {
 
 export const BLOGS: BlogMeta[] = [
   {
+    slug: "ai-compliance-pyramiden",
+    title: "AI Compliance Pyramiden",
+    date: "2026-06-08",
+    excerpt: "Dagens etterlevelsesgap.",
+    file: () => import("./ai-compliance-pyramiden.md?raw"),
+  },  {
     slug: "maling-av-fordommer-i-ai-systemer-del-3",
     title: "Måling av fordommer i AI-systemer ved bruk av norsk språk og kontekst, del 3",
     date: "2026-02-11",
