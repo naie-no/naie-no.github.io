@@ -30,7 +30,7 @@ const activities = {
       {
         title: "Resultater og funn",
         points: [
-          "Over 1200 AI-genererte svar har blitt analysert",
+          "Over 48.000 AI-genererte svar har blitt analysert",
           "Signifikante forskjeller i bias-nivåer mellom ulike modeller",
           "Norges første systematiske bias-indikator for AI",
           "Samarbeid med LDO for å knytte funn til diskrimineringslovgivning",

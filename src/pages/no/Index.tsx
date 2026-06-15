@@ -38,7 +38,7 @@ const pillars = [
 
 const stats = [
   { value: "3", label: "Pilarer", icon: TrendingUp },
-  { value: "1200+", label: "AI-svar analysert", icon: BarChart3 },
+  { value: "48.000+", label: "AI-svar analysert", icon: BarChart3 },
   { value: "Norges første", label: "Bias-indikator", icon: Award },
   { value: "Samarbeid", label: "med LDO", icon: Users },
 ];
