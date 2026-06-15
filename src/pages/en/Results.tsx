@@ -140,8 +140,7 @@ function GroupedVerticalBarChart() {
 
   return (
     <Card className="border-0 shadow-md mb-8">
-      // Inside your GroupedVerticalBarChart return statement:
-	    <CardContent className="p-6">
+	  <CardContent className="p-6">
 	    {/* TOP SECTION: Title and Source/Guide */}
 	    <div className="flex flex-col gap-4">
 	   	 <div>
