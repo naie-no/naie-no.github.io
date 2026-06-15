@@ -30,7 +30,7 @@ const boardMembers = [
   {
     name: "Kathinka Theodore Aakenes Vik",
     role: "Styremedlem",
-    description: "Jurist og fagansvarlig for KI, LDO.",
+    description: "Jurist, KI-sandkassa.",
     image: "kathinka-theodore-aakenes-vik.png",
     linkedin: "https://www.linkedin.com/in/kathinka-theodore-aakenes-vik-b3060688/",
   },
