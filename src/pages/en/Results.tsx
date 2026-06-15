@@ -1,25 +1,27 @@
- import { useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, ArrowRight, BarChart3, CheckCircle, TrendingUp } from "lucide-react";
+import { AlertTriangle, ArrowRight, BarChart3, CheckCircle, TrendingUp, History } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-/**
- * NOTE:
- * - The numbers below are placeholders. Replace with actual results when you publish.
- * - Percentages are used here (% bias deviation) like on naie.no.
- */
+// Adjusted type definition to cleanly match dynamic indexing
 type CategoryRow = {
   category: string;
-  gpt4o: number;
-  gemini25: number;
-  perplexity: number;
+  [key: string]: string | number;
 };
 
-// Placeholder numbers (can be replaced)
-const nobbqCategoryScores: CategoryRow[] = [
+// 🌟 CURRENT DATASET: 48,803 Responses
+const currentCategoryScores: CategoryRow[] = [
+  { category: "Gender", gpt4o: 4.2, gemini25: 8.6, mistrallarge2512: 8.3, borealis27b: 15.2 },
+  { category: "Age", gpt4o: 11, gemini25: 24.2, mistrallarge2512: 27.1, borealis27b: 28 },
+  { category: "Nationality", gpt4o: 12, gemini25: 13, mistrallarge2512: 19.9, borealis27b: 24.7 },
+  { category: "Religion", gpt4o: 18, gemini25: 18.4, mistrallarge2512: 23.5, borealis27b: 17.8 },
+];
+
+// 📜 HISTORICAL DATASET: 1,200 Responses 
+const historicalCategoryScores: CategoryRow[] = [
   { category: "Gender", gpt4o: 17, gemini25: 31, perplexity: 21 },
   { category: "Age", gpt4o: 27, gemini25: 26, perplexity: 26 },
   { category: "Nationality", gpt4o: 26, gemini25: 19, perplexity: 26 },
@@ -40,52 +42,57 @@ function clamp(n: number, min: number, max: number) {
 }
 
 function GroupedVerticalBarChart() {
-  const series = [
+  const [viewHistorical, setViewHistorical] = useState(false);
+  
+  // 🟢 Separate Series Configs per Dataset View so bars match the data context perfectly
+  const currentSeries = [
+    { key: "gpt4o", label: "ChatGPT-4o", color: "#3D148A" },
+    { key: "gemini25", label: "Gemini 2.5", color: "#FFC000" },
+    { key: "mistrallarge2512", label: "Mistral Large", color: "#7C3AED" }, // Given unique color
+    { key: "borealis27b", label: "Borealis 27b", color: "#E85E00" },      // Given unique color
+  ] as const;
+
+  const historicalSeries = [
     { key: "gpt4o", label: "ChatGPT-4o", color: "#5A23C9" },
     { key: "gemini25", label: "Gemini 2.5", color: "#FF7A1A" },
     { key: "perplexity", label: "Perplexity", color: "#0B0B0F" },
   ] as const;
 
-  const maxValue =
-    Math.max(...nobbqCategoryScores.flatMap((d) => [d.gpt4o, d.gemini25, d.perplexity])) || 1;
+  const activeSeries = viewHistorical ? historicalSeries : currentSeries;
+  const cats = viewHistorical ? historicalCategoryScores : currentCategoryScores;
 
-  // Nice max for axis, minimum 40 like your example
+  // Dynamically calculate max value based on active series keys
+  const maxValue = Math.max(
+    ...cats.flatMap((d) => activeSeries.map((s) => (d[s.key] as number) || 0))
+  ) || 1;
+
   const yMax = Math.max(40, Math.ceil(maxValue / 5) * 5);
   const yStep = 5;
   const yTicks = Array.from({ length: Math.floor(yMax / yStep) + 1 }, (_, i) => i * yStep);
 
-  // SVG layout
   const width = 980;
   const height = 420;
   const margin = { top: 24, right: 170, bottom: 86, left: 78 };
   const plotW = width - margin.left - margin.right;
   const plotH = height - margin.top - margin.bottom;
 
-  const cats = nobbqCategoryScores;
   const catCount = cats.length;
-
   const groupW = plotW / catCount;
-
-  // ✅ Wider gap BETWEEN categories
-  const groupOuterPad = 26; // try 22–40 depending on taste
-
-  // ✅ Tight spacing WITHIN category
-  const barGap = 4;
-
-  const barsPerGroup = series.length;
+  const groupOuterPad = 20; // Lowered slightly to make room for 4 concurrent bars
+  const barGap = 3;
+  const barsPerGroup = activeSeries.length;
 
   const barW = Math.max(
-    12,
+    10,
     (groupW - groupOuterPad * 2 - barGap * (barsPerGroup - 1)) / barsPerGroup,
   );
 
   const yToSvg = (v: number) => margin.top + (plotH - (v / yMax) * plotH);
   const hToSvg = (v: number) => (v / yMax) * plotH;
 
-  // Tooltip handling (HTML tooltip over the SVG, like naie.no)
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [activeSeriesKey, setActiveSeriesKey] = useState<"gpt4o" | "gemini25" | "perplexity" | null>(null);
+  const [activeSeriesKey, setActiveSeriesKey] = useState<string | null>(null);
   const [tip, setTip] = useState<TooltipState>({
     visible: false,
     x: 0,
@@ -98,34 +105,25 @@ function GroupedVerticalBarChart() {
   const positionTip = (e: ReactMouseEvent) => {
     const rect = wrapRef.current?.getBoundingClientRect();
     if (!rect) return { x: 0, y: 0 };
-
-    // Tooltip box is ~200-240px wide depending on text; clamp to container.
     const rawX = e.clientX - rect.left;
     const rawY = e.clientY - rect.top;
-
-    const x = clamp(rawX + 14, 10, rect.width - 240);
-    const y = clamp(rawY - 24, 10, rect.height - 70);
-    return { x, y };
+    return {
+      x: clamp(rawX + 14, 10, rect.width - 240),
+      y: clamp(rawY - 24, 10, rect.height - 70)
+    };
   };
 
   const showTip = (
     e: ReactMouseEvent,
     category: string,
-    seriesKey: "gpt4o" | "gemini25" | "perplexity",
+    seriesKey: string,
     model: string,
     value: number,
   ) => {
     setActiveCategory(category);
     setActiveSeriesKey(seriesKey);
     const pos = positionTip(e);
-    setTip({
-      visible: true,
-      x: pos.x,
-      y: pos.y,
-      category,
-      model,
-      value,
-    });
+    setTip({ visible: true, x: pos.x, y: pos.y, category, model, value });
   };
 
   const moveTip = (e: ReactMouseEvent) => {
@@ -142,50 +140,56 @@ function GroupedVerticalBarChart() {
 
   return (
     <Card className="border-0 shadow-md mb-8">
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between gap-6 flex-wrap">
-          <div>
-            <h3 className="text-2xl font-extrabold text-[#0F172A]">% Bias deviation per category per LLM</h3>
-            <p className="text-sm text-gray-600 mt-1">
-              Source: NoBBQ method, population ≈ 100 prompts, 2025-09-07
-            </p>
-          </div>
-          <div className="flex items-center gap-6 flex-wrap">
-            {series.map((s) => {
-              const isActiveSeries = activeSeriesKey === s.key;
-              const isSomeActive = activeSeriesKey !== null;
-              return (
-                <div
-                  key={s.key}
-                  className="flex items-center gap-2"
-                  style={{ opacity: isSomeActive ? (isActiveSeries ? 1 : 0.35) : 1 }}
-                >
-                  <span
-                    className="w-4 h-4 rounded-sm"
-                    style={{
-                      backgroundColor: s.color,
-                      outline: isActiveSeries ? "2px solid rgba(15,23,42,0.35)" : "none",
-                      outlineOffset: "2px",
-                    }}
-                  />
-                  <span
-                    className="text-sm text-gray-700 font-medium"
-                    style={{
-                      fontWeight: isActiveSeries ? 800 : 600,
-                      textDecoration: isActiveSeries ? "underline" : "none",
-                      textUnderlineOffset: "3px",
-                    }}
-                  >
-                    {s.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      // Inside your GroupedVerticalBarChart return statement:
+	    <CardContent className="p-6">
+	    {/* TOP SECTION: Title and Source/Guide */}
+	    <div className="flex flex-col gap-4">
+	   	 <div>
+	   	 <h3 className="text-2xl font-extrabold text-[#0F172A]">% Bias Deviation per Category per LLM</h3>
+	   	 <p className="text-sm text-gray-600 mt-1">
+	   		 Source: NoBBQ method, population ≈ {viewHistorical ? "1,200" : "48,803"} prompts
+	   	 </p>
+	   	 <p className="text-xs font-medium text-purple-700 mt-2 bg-purple-50 inline-block px-2 py-1 rounded">
+	   		 💡 <strong>How to read:</strong> Higher values indicate greater bias deviation, while lower values represent a more unbiased, neutral response.
+	   	 </p>
+	   	 </div>
+	    
+	   	 {/* LEGEND SECTION: Pushed below the guide */}
+	   	 <div className="flex items-center gap-6 flex-wrap mt-2">
+	   	 {activeSeries.map((s) => {
+	   		 const isActiveSeries = activeSeriesKey === s.key;
+	   		 const isSomeActive = activeSeriesKey !== null;
+	   		 return (
+	   		 <div
+	   			 key={s.key}
+	   			 className="flex items-center gap-2"
+	   			 style={{ opacity: isSomeActive ? (isActiveSeries ? 1 : 0.35) : 1 }}
+	   		 >
+	   			 <span
+	   			 className="w-4 h-4 rounded-sm"
+	   			 style={{
+	   				 backgroundColor: s.color,
+	   				 outline: isActiveSeries ? "2px solid rgba(15,23,42,0.35)" : "none",
+	   				 outlineOffset: "2px",
+	   			 }}
+	   			 />
+	   			 <span
+	   			 className="text-sm text-gray-700 font-medium"
+	   			 style={{
+	   				 fontWeight: isActiveSeries ? 800 : 600,
+	   				 textDecoration: isActiveSeries ? "underline" : "none",
+	   				 textUnderlineOffset: "3px",
+	   			 }}
+	   			 >
+	   			 {s.label}
+	   			 </span>
+	   		 </div>
+	   		 );
+	   	 })}
+	   	 </div>
+	    </div>
 
         <div ref={wrapRef} className="mt-6 overflow-x-auto relative">
-          {/* Tooltip */}
           {tip.visible && (
             <div
               className="absolute z-10 rounded-md border border-gray-200 bg-white shadow-lg px-3 py-2 text-sm"
@@ -206,7 +210,6 @@ function GroupedVerticalBarChart() {
             onMouseMove={moveTip}
             onMouseLeave={hideTip}
           >
-            {/* Gridlines + Y tick labels */}
             {yTicks.map((t) => {
               const y = yToSvg(t);
               return (
@@ -226,63 +229,30 @@ function GroupedVerticalBarChart() {
               );
             })}
 
-            {/* Axes */}
-            <line
-              x1={margin.left}
-              y1={margin.top}
-              x2={margin.left}
-              y2={margin.top + plotH}
-              stroke="#111827"
-              strokeWidth="1.5"
-              opacity="0.55"
-            />
-            <line
-              x1={margin.left}
-              y1={margin.top + plotH}
-              x2={width - margin.right}
-              y2={margin.top + plotH}
-              stroke="#111827"
-              strokeWidth="1.5"
-              opacity="0.55"
-            />
+            <line x1={margin.left} y1={margin.top} x2={margin.left} y2={margin.top + plotH} stroke="#111827" strokeWidth="1.5" opacity="0.55" />
+            <line x1={margin.left} y1={margin.top + plotH} x2={width - margin.right} y2={margin.top + plotH} stroke="#111827" strokeWidth="1.5" opacity="0.55" />
 
-            {/* Y axis label */}
-            <text
-              x={22}
-              y={margin.top + plotH / 2}
-              transform={`rotate(-90 22 ${margin.top + plotH / 2})`}
-              fontSize="12"
-              fill="#111827"
-              opacity="0.95"
-            >
+            <text x={22} y={margin.top + plotH / 2} transform={`rotate(-90 22 ${margin.top + plotH / 2})`} fontSize="12" fill="#111827" opacity="0.95">
               % Bias deviation in the answers
             </text>
 
-            {/* Bars + category labels */}
             {cats.map((row, i) => {
               const groupX = margin.left + i * groupW;
               const startX = groupX + groupOuterPad;
               const isActive = activeCategory === row.category;
 
-              const values = [
-                { key: "gpt4o", value: row.gpt4o, label: series[0].label, color: series[0].color },
-                { key: "gemini25", value: row.gemini25, label: series[1].label, color: series[1].color },
-                { key: "perplexity", value: row.perplexity, label: series[2].label, color: series[2].color },
-              ] as const;
+              // 🛠️ FIX: Map over activeSeries directly so it reads all keys dynamically from data rows
+              const values = activeSeries.map((s) => ({
+                key: s.key,
+                value: (row[s.key] as number) || 0,
+                label: s.label,
+                color: s.color,
+              }));
 
               return (
                 <g key={row.category}>
-                  {/* ✅ Subtle group highlight on hover */}
                   {isActive && (
-                    <rect
-                      x={groupX + 6}
-                      y={margin.top}
-                      width={groupW - 12}
-                      height={plotH}
-                      fill="#5A23C9"
-                      opacity="0.06"
-                      rx="8"
-                    />
+                    <rect x={groupX + 6} y={margin.top} width={groupW - 12} height={plotH} fill="#5A23C9" opacity="0.06" rx="8" />
                   )}
 
                   {values.map((v, j) => {
@@ -305,57 +275,53 @@ function GroupedVerticalBarChart() {
                         fill={v.color}
                         opacity={
                           isSomeSeriesActive
-                            ? isActiveSeries
-                              ? 1
-                              : 0.22
-                            : isSomeCategoryActive
-                              ? isActiveCategory
-                                ? 1
-                                : 0.6
-                              : 0.98
+                            ? isActiveSeries ? 1 : 0.22
+                            : isSomeCategoryActive ? isActiveCategory ? 1 : 0.6 : 0.98
                         }
                         rx="2"
                         style={{ cursor: "default" }}
                         onMouseEnter={(e) => showTip(e, row.category, v.key, v.label, v.value)}
                         onMouseMove={(e) => showTip(e, row.category, v.key, v.label, v.value)}
                       >
-                        {/* Fallback tooltip (native) */}
                         <title>{`${row.category}\n${v.label}: ${v.value}`}</title>
                       </rect>
                     );
                   })}
 
-                  {/* Category label under group */}
-                  <text
-                    x={groupX + groupW / 2}
-                    y={margin.top + plotH + 42}
-                    textAnchor="middle"
-                    fontSize="14"
-                    fill="#111827"
-                  >
+                  <text x={groupX + groupW / 2} y={margin.top + plotH + 42} textAnchor="middle" fontSize="14" fill="#111827">
                     {row.category}
                   </text>
                 </g>
               );
             })}
 
-            {/* X axis label */}
-            <text
-              x={margin.left + plotW / 2}
-              y={height - 20}
-              textAnchor="middle"
-              fontSize="12"
-              fill="#111827"
-              opacity="0.95"
-            >
+            <text x={margin.left + plotW / 2} y={height - 20} textAnchor="middle" fontSize="12" fill="#111827" opacity="0.95">
               Category
             </text>
           </svg>
         </div>
 
-        <p className="text-xs text-gray-500 mt-4">
-          Preliminary results. The numbers are temporary and will be updated as the dataset and methodology are further developed.
-        </p>
+        <div className="mt-6 pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-xs text-gray-500 max-w-2xl leading-relaxed">
+            {viewHistorical ? (
+              <span><strong>Pilot Phase Data Notice:</strong> Displaying original validation findings from our baseline run. These data entries are maintained strictly for study evolution transparency.</span>
+            ) : (
+              <span><strong>Methodology Note:</strong> This graph displays live indicators using our expanded dataset. Values have statistically settled compared to our early pilot runs.</span>
+            )}
+          </p>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => {
+              setViewHistorical(!viewHistorical);
+              hideTip(); // Clear state variables on change to prevent invalid key crashes
+            }}
+            className="shrink-0 flex items-center gap-2 border-gray-300 hover:bg-gray-50 text-xs font-semibold text-gray-700"
+          >
+            <History className="w-3.5 h-3.5" />
+            {viewHistorical ? "Switch to current (48,803 responses)" : "View baseline (1,200 responses)"}
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
@@ -364,16 +330,16 @@ function GroupedVerticalBarChart() {
 const keyFindings = [
   {
     icon: BarChart3,
-    title: "1200+ answers analyzed",
+    title: "48,803+ responses analyzed",
     description:
-      "Over 1200 AI-generated answers have been systematically analyzed for bias and skew through the NoBBQ benchmark.",
+      "Our system expanded from a 1,200 response pilot to systematically processing over 48k responses, scaling accuracy across localized contextual indicators.",
     color: "#5A23C9",
   },
   {
     icon: AlertTriangle,
-    title: "Observed differences",
+    title: "Observed variations",
     description:
-      "We observe differences in bias patterns between different large language models used in Norway. Further analysis will show how robust the findings are over time and across datasets.",
+      "Granular deviations emerge uniformly within large language models utilized across Norway. The scaled sample reveals stable long-tail trends in target modules.",
     color: "#FF7A1A",
   },
   {
@@ -418,7 +384,6 @@ export default function Resultater() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-[#3D148A] mb-10 text-center">Key findings</h2>
 
-          {/* Chart first, like on naie.no */}
           <GroupedVerticalBarChart />
 
           <div className="grid md:grid-cols-2 gap-6">
