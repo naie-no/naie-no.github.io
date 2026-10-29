@@ -8,6 +8,12 @@ export type BlogMeta = {
 
 export const BLOGS: BlogMeta[] = [
   {
+    slug: "measuring-bias-in-ai-systems-part-4-scaling-nobbq",
+    title: "Measuring Bias in AI Systems Using Norwegian Language and Context, Part 4: Scaling NoBBQ",
+    date: "2026-08-18",
+    excerpt: "What We Found in 50,000 AI Responses.",
+    file: () => import("./measuring-bias-in-ai-systems-part-4-scaling-nobbq.md?raw"),
+  },  {
     slug: "the-ai-compliance-pyramid",
     title: "The AI Compliance Pyramid",
     date: "2026-06-08",

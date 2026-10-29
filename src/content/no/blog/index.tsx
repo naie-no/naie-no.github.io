@@ -8,6 +8,12 @@ export type BlogMeta = {
 
 export const BLOGS: BlogMeta[] = [
   {
+    slug: "maling-av-fordommer-i-ai-systemer-del-4-skalering-av-nobbq",
+    title: "Måling av fordommer i AI-systemer ved bruk av norsk språk og kontekst, del 4: Skalering av NoBBQ",
+    date: "2026-08-18",
+    excerpt: "DHva fant vi i 50 000 KI-svar?",
+    file: () => import("./maling-av-fordommer-i-ai-systemer-del-4-skalering-av-nobbqz.md?raw"),
+  },  {
     slug: "ai-compliance-pyramiden",
     title: "AI Compliance Pyramiden",
     date: "2026-06-08",
